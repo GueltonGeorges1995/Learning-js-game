@@ -57,7 +57,7 @@ console.log(luck);
 
 
 
-let test;
+let dead = 0;
 
 if (luck == 0){
     console.log("Vous tombez sur un énorme monstre !");
@@ -66,25 +66,26 @@ if (luck == 0){
     monsterTab.splice(positionMonster,1) // j'enlève le monstre de la place ou il était dans monsterTab
     
     
-    while(test = true){
-        if(player1.hp > 0 || arena[1].hp > 0){
-            test = true;
-        }
-        if(player1.attackSpeed > arena[1].attackSpeed){
-            choice = Number(prompt("Entrez 1 pour attaquer le monstre ou 2 pour vous soigner ! "));
-            if(choice == 1){
-                console.log("Vous avez décidé d'attaquer le monstre !");
-                player1.swordAttack(player1,arena[1]);
-                arena[1].clawsAttack(player1,arena[1]);
-            }
-            else {
-                console.log("Vous avez décidé de vous soigner ! ");
-                player1.healingSpell(player1);
-                console.log("Votre joueur a " +player1.hp + " point de vie");
-                arena[1].clawsAttack(player1,arena[1]);
+    while(dead == 0){
+    
+            if(player1.attackSpeed > arena[1].attackSpeed){
+                choice = Number(prompt("Entrez 1 pour attaquer le monstre ou 2 pour vous soigner ! "));
+                if(choice == 1){
+                    console.log("Vous avez décidé d'attaquer le monstre !");
+                    player1.swordAttack(player1,arena[1]);
+                    arena[1].clawsAttack(player1,arena[1]);
+                }
+                else {
+                    console.log("Vous avez décidé de vous soigner ! ");
+                    player1.healingSpell(player1);
+                    console.log("Votre joueur a " +player1.hp + " point de vie");
+                    arena[1].clawsAttack(player1,arena[1]);
 
+                }
             }
-        }
+            if(player1.hp == 0 || arena[1].hp == 0){
+                dead = 1
+            }
     }
 
 }
