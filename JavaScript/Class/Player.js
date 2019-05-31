@@ -8,7 +8,7 @@ export default class Player {
     }
     swordAttack(x,y){  
         y.hp -= x.damage
-        console.log("Le monstre à perdu "+ x.damage+" point de vie. Il ne lui reste donc que "+y.hp+ " point de vie");
+        console.log("Le monstre à perdu "+ x.damage+" point de vie. Il  lui reste donc "+y.hp+ " point de vie");
     }
     healingSpell(x){
         if(x.hp == 100){

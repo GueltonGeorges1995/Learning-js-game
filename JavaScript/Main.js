@@ -23,12 +23,12 @@ let player1 = new Player (heroesName,100,100,10,10);
 
 
 // Introduire les 6 monstres.
-let monster1 = new Monster("Thomas",20,5,5);
-let monster2 = new Monster("Pierre",20,5,5);
-let monster3 = new Monster("Georges",20,5,5);
-let monster4 = new Monster("Albi",20,5,5);
-let monster5 = new Monster("Arno",20,5,5);
-let monster6 = new Monster("Majda",20,5,5);
+let monster1 = new Monster("Thomas",20,15,5);
+let monster2 = new Monster("Pierre",20,15,5);
+let monster3 = new Monster("Georges",20,15,5);
+let monster4 = new Monster("Albi",20,15,15);
+let monster5 = new Monster("Arno",20,15,15);
+let monster6 = new Monster("Majda",20,15,15);
 
 // Je places mes monstres dans un tableau.
 let monsterTab = [monster1,monster2,monster3,monster4,monster5,monster6];
@@ -56,19 +56,19 @@ console.log(luck);
 
 
 
-
+// je définis ma condition d'arrêt de boucle
 let dead = 0;
-
+// random pour voir ce qu'il va y avoir dans le tab arena
 if (luck == 0){
     console.log("Vous tombez sur un énorme monstre !");
     positionMonster = Math.floor(Math.random() * 6); // je génère un chiffre entre 0 et 5
     arena.push(monsterTab[positionMonster]); // je vais mettre dans l'arène le monstre a la position choisi
     monsterTab.splice(positionMonster,1) // j'enlève le monstre de la place ou il était dans monsterTab
     
-    
+    // Tant que ma condition est vrai
     while(dead == 0){
     
-            if(player1.attackSpeed > arena[1].attackSpeed){
+            if(player1.attackSpeed > arena[1].attackSpeed){ // Si je suis plus rapide que le monstre
                 choice = Number(prompt("Entrez 1 pour attaquer le monstre ou 2 pour vous soigner ! "));
                 if(choice == 1){
                     console.log("Vous avez décidé d'attaquer le monstre !");
@@ -82,10 +82,38 @@ if (luck == 0){
                     arena[1].clawsAttack(player1,arena[1]);
 
                 }
+            }else if (player1.attackSpeed < arena[1].attackSpeed){ // Si je suis moins rapide que le monstre 
+                arena[1].clawsAttack(player1,arena[1]);
+                console.log("Le monstre est plus rapide que vous");
+                choice = Number(prompt("Entrez 1 pour attaquer le monstre ou 2 pour vous soigner ! "));
+                if(choice ==1){
+                    console.log("Vous avez décidé d'attaquer le monstre !");
+                    player1.swordAttack(player1,arena[1]);
+                    // arena[1].clawsAttack(player1,arena[1]);
+                }else {
+                    console.log("Vous avez décidé de vous soigner ! ");
+                    player1.healingSpell(player1);
+                    console.log("Votre joueur a " +player1.hp + " point de vie");
+                    // arena[1].clawsAttack(player1,arena[1]);
+                }
             }
-            if(player1.hp == 0 || arena[1].hp == 0){
-                dead = 1
+            
+            
+            
+            
+            
+            
+            // Ma condition pour sortir de ma boucle
+            if(player1.hp == 0){
+                dead = 1;
+                console.log("Vous êtes mort");
             }
+            else if(arena[1].hp == 0){
+                dead = 1;
+                console.log("Le monstre est mort");
+            }
+
+            
     }
 
 }
