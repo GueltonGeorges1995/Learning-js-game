@@ -35,9 +35,9 @@ let monsterTab = [monster1,monster2,monster3,monster4,monster5,monster6];
 
 // Introduire les trois coffres.
 // attsp,hp,dmg
-let chest1 = new Chest(5,0,15);
-let chest2 = new Chest(10,5,0);
-let chest3 = new Chest(5,30,0);
+let chest1 = new Chest(5,0,15,"Bonus 1",1);
+let chest2 = new Chest(10,5,0,"Bonus 2",1);
+let chest3 = new Chest(5,30,0,"Bonus 3",1);
 
 // Je place mes coffres dans un tableau.
 let chestTab = [chest1,chest2,chest3];
@@ -50,6 +50,9 @@ let arena = [player1];
 // Si je tombe sur 0 un monstre est envoyé dans l'arène.
 // Si je tombe sur 1 un coffre est envoyé dans l'arène.
 
+let dead = 0;
+
+
 
 luck = Math.floor(Math.random() * 2); // je fais un random entre 0 et 1
 console.log(luck);
@@ -57,7 +60,7 @@ console.log(luck);
 
 
 // je définis ma condition d'arrêt de boucle
-let dead = 0;
+
 // random pour voir ce qu'il va y avoir dans le tab arena
 if (luck == 0){
     console.log("Vous tombez sur un énorme monstre !");
@@ -67,28 +70,27 @@ if (luck == 0){
     
     // Tant que ma condition est vrai
     while(dead == 0){
-    
             if(player1.attackSpeed > arena[1].attackSpeed){ // Si je suis plus rapide que le monstre
                 choice = Number(prompt("Entrez 1 pour attaquer le monstre ou 2 pour vous soigner ! "));
                 if(choice == 1){
                     console.log("Vous avez décidé d'attaquer le monstre !");
-                    player1.swordAttack(player1,arena[1]);
-                    arena[1].clawsAttack(player1,arena[1]);
+                    player1.swordAttack(arena[1]);
+                    arena[1].clawsAttack(player1);
                 }
                 else {
                     console.log("Vous avez décidé de vous soigner ! ");
                     player1.healingSpell(player1);
                     console.log("Votre joueur a " +player1.hp + " point de vie");
-                    arena[1].clawsAttack(player1,arena[1]);
+                    arena[1].clawsAttack(player1);
 
                 }
             }else if (player1.attackSpeed < arena[1].attackSpeed){ // Si je suis moins rapide que le monstre 
-                arena[1].clawsAttack(player1,arena[1]);
+                arena[1].clawsAttack(player1);
                 console.log("Le monstre est plus rapide que vous");
                 choice = Number(prompt("Entrez 1 pour attaquer le monstre ou 2 pour vous soigner ! "));
                 if(choice ==1){
                     console.log("Vous avez décidé d'attaquer le monstre !");
-                    player1.swordAttack(player1,arena[1]);
+                    player1.swordAttack(arena[1]);
                     // arena[1].clawsAttack(player1,arena[1]);
                 }else {
                     console.log("Vous avez décidé de vous soigner ! ");
@@ -98,19 +100,25 @@ if (luck == 0){
                 }
             }
             
-            
-            
-            
-            
-            
             // Ma condition pour sortir de ma boucle
             if(player1.hp == 0){
                 dead = 1;
                 console.log("Vous êtes mort");
+                nb = 10
             }
             else if(arena[1].hp == 0){
                 dead = 1;
                 console.log("Le monstre est mort");
+                arena.splice(1,1);
+                console.log(arena);
+                nb+= 1;
+            }
+            else if (arena[1].hpChest == 0){
+                dead = 1;
+                console.log("Le coffre à été looté");
+                arena.splice(1,1);
+                console.log(arena)
+                nb += 1;
             }
 
             
@@ -135,5 +143,7 @@ else {
     console.log(arena)
     chestTab.splice(positionChest,1) // J'enlève le coffre de la ou il était dans chestTab
     console.log(chestTab)
+    player1.lootChest(arena[1]);
+    console.log(player1);
 }
 
