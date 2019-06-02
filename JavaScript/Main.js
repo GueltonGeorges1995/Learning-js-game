@@ -26,9 +26,9 @@ let player1 = new Player (heroesName,100,100,10,10);
 let monster1 = new Monster("Thomas",20,15,5);
 let monster2 = new Monster("Pierre",20,15,5);
 let monster3 = new Monster("Georges",20,15,5);
-let monster4 = new Monster("Albi",20,15,15);
-let monster5 = new Monster("Arno",20,15,15);
-let monster6 = new Monster("Majda",20,15,15);
+let monster4 = new Monster("Albi",20,5,15);
+let monster5 = new Monster("Arno",20,5,25);
+let monster6 = new Monster("Majda",20,5,35);
 
 // Je places mes monstres dans un tableau.
 let monsterTab = [monster1,monster2,monster3,monster4,monster5,monster6];
